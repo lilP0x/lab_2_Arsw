@@ -12,43 +12,26 @@ public class Main {
 		PrimeFinderThread pft1=new PrimeFinderThread(0, 100);
 		PrimeFinderThread pft2=new PrimeFinderThread(100, 200);
 		PrimeFinderThread pft3=new PrimeFinderThread(200, 300);
+		long startTime = System.nanoTime();
 
 		pft1.start();
-	
-		try {
-			synchronized (pft1) {
-				System.out.println("se está durmiendo el hilo");
-				pft1.wait(5000);
-			} 
-		}catch (InterruptedException e) {
-			e.printStackTrace();
-		}	
-	
-		try {
-			synchronized (pft2) {
-				System.out.println("se está durmiendo el hilo");
-				pft2.wait(5000);
-			} 
-		}catch (InterruptedException e) {
-			e.printStackTrace();
-		}	
+		pft2.start();
+		pft3.start();
+		PrimeFinderThread[] threads = {pft1, pft2, pft3};
 
-		try {
-			synchronized (pft3) {
-				System.out.println("se está durmiendo el hilo");
-				pft3.wait(5000);
-			} 
-		}catch (InterruptedException e) {
-			e.printStackTrace();
-		}	
-
-		long startTime = System.nanoTime();
- 
-        try {
-			TimeUnit.SECONDS.sleep(14);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+        for (int i = 0; i < threads.length; i++) {
+            try {
+                // Cada 5 segundos, hacer que un hilo se duerma
+                TimeUnit.SECONDS.sleep(5);
+                synchronized (threads[i]) {
+                   // threads[i].pauseThread();  // Pausar el hilo
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+	
+		
  
         long endTime = System.nanoTime();
         long timeElapsed = endTime - startTime;

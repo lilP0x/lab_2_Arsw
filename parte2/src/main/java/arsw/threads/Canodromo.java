@@ -118,7 +118,7 @@ public class Canodromo extends JFrame {
 	 * Retorna un carril
 	 * 
 	 * @param i
-	 *            Numero del carril
+	 * Numero del carril
 	 * @return
 	 */
 	public Carril getCarril(int i) {
