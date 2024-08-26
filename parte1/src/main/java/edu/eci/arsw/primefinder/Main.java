@@ -10,7 +10,8 @@ public class Main {
 
 	public static void main(String[] args) {		
 		
-		
+		ControlThreads control = new ControlThreads();
+        control.run();
 		
 	}
 	
