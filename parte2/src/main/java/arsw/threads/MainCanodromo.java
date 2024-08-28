@@ -21,20 +21,24 @@ public class MainCanodromo {
                 //'galgos', los pone a correr, y luego muestra los resultados.
                 //La acción del botón se realiza en un hilo aparte para evitar
                 //bloquear la interfaz gráfica.
+                System.out.println("Botón presionado");
                 ((JButton) e.getSource()).setEnabled(false);
                 new Thread() {
                     public void run() {
+                        System.out.println("Hilo de carrera iniciado");
                         for (int i = 0; i < can.getNumCarriles(); i++) {
                             //crea los hilos 'galgos'
                             galgos[i] = new Galgo(can.getCarril(i), "" + i, reg);
                             //inicia los hilos
                             galgos[i].start();
+                            System.out.println("Galgo " + i + " iniciado en el hilo: " + galgos[i].getName());
                         }
 
                         try {
                             // Esperar a que todos los galgos terminen
                             for (Galgo galgo : galgos) {
                                 galgo.join();
+                                System.out.println("Galgo " + galgo.getName() + " terminó");
                             }
                         } catch (InterruptedException ex) {
                             ex.printStackTrace();
@@ -45,6 +49,7 @@ public class MainCanodromo {
 
                         // Volver a habilitar el botón Start
                         ((JButton) e.getSource()).setEnabled(true);
+                        System.out.println("Botón habilitado nuevamente");
                     }
                 }.start();
             }

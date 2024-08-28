@@ -2,6 +2,7 @@ Escuela Colombiana de Ingeniería
 
 Arquitecturas de Software – ARSW
 
+Nombres: Juan Pablo Fernandez / Laura Valentina Rodríguez
 ####Taller – programación concurrente, condiciones de carrera y sincronización de hilos. EJERCICIO INDIVIDUAL O EN PAREJAS.
 
 #####Parte I – Antes de terminar la clase.
@@ -9,9 +10,9 @@ Arquitecturas de Software – ARSW
 Creación, puesta en marcha y coordinación de hilos.
 
 1. Revise el programa “primos concurrentes” (en la carpeta parte1), dispuesto en el paquete edu.eci.arsw.primefinder. Este es un programa que calcula los números primos entre dos intervalos, distribuyendo la búsqueda de los mismos entre hilos independientes. Por ahora, tiene un único hilo de ejecución que busca los primos entre 0 y 30.000.000. Ejecútelo, abra el administrador de procesos del sistema operativo, y verifique cuantos núcleos son usados por el mismo.
-
+   ![](./img/media/Image1.jpeg)
 2. Modifique el programa para que, en lugar de resolver el problema con un solo hilo, lo haga con tres, donde cada uno de éstos hará la tarcera parte del problema original. Verifique nuevamente el funcionamiento, y nuevamente revise el uso de los núcleos del equipo.
-
+   ![](./img/media/Image2.jpeg)
 3. Lo que se le ha pedido es: debe modificar la aplicación de manera que cuando hayan transcurrido 5 segundos desde que se inició la ejecución, se detengan todos los hilos y se muestre el número de primos encontrados hasta el momento. Luego, se debe esperar a que el usuario presione ENTER para reanudar la ejecución de los mismo.
 
 
@@ -41,19 +42,48 @@ Taller.
     Para esto tenga en cuenta:
 
     a.  La acción de iniciar la carrera y mostrar los resultados se realiza a partir de la línea 38 de MainCanodromo.
+    
+    ![](./img/media/Image3.jpeg)
 
     b.  Puede utilizarse el método join() de la clase Thread para sincronizar el hilo que inicia la carrera, con la finalización de los hilos de los galgos.
 
+    ![](./img/media/Image4.jpeg)
+ 
 2.  Una vez corregido el problema inicial, corra la aplicación varias
     veces, e identifique las inconsistencias en los resultados de las
     mismas viendo el ‘ranking’ mostrado en consola (algunas veces
     podrían salir resultados válidos, pero en otros se pueden presentar
     dichas inconsistencias). A partir de esto, identifique las regiones
     críticas () del programa.
+    
+    a. Primera prueba:
+
+    ![](./img/media/Image5.jpeg)
+    ![](./img/media/Image6.jpeg)
+
+    b. Segunda prueba:
+
+    ![](./img/media/Image7.jpeg)
+    ![](./img/media/Image8.jpeg)
+
+    En las dos pruebas podemos identificar que hay más de un ganador, eso no tiene sentido en las carreras.
+    Así que si buscamos el mensaje de -- El galgo "valor" llego en la posicion "numPosicion" --, está en la clase de Galgo.java.
+    El motivo que existan más de un ganador es porque se está compartiendo la misma variable y a su vez está haciendo mutable; lo que no es correcto.
+    Entonces podremos identificar la región critica, de está clase:
+
+    ![](./img/media/Image9.jpeg)
 
 3.  Utilice un mecanismo de sincronización para garantizar que a dichas
     regiones críticas sólo acceda un hilo a la vez. Verifique los
     resultados.
+
+    ![](./img/media/Image10.jpeg)
+
+     Con este cambio, ya no hay regiones críticas; que afecten el orden de secuencia de la carrera.
+    
+    Prueba de la correción, para la orden de llegada.
+
+    ![](./img/media/Image11.jpeg)
 
 4.  Implemente las funcionalidades de pausa y continuar. Con estas,
     cuando se haga clic en ‘Stop’, todos los hilos de los galgos
