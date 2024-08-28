@@ -5,10 +5,12 @@ import java.io.InputStreamReader;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import org.omg.CORBA.PRIVATE_MEMBER;
+
 public class ControlThreads extends Thread {
 
     private final static int NTHREADS = 3;
-    private final static int MAXVALUE = 10;
+    private final static int MAXVALUE = 10000;
     private final static int TMILISECONDS = 5000;
 
     private final int NDATA = MAXVALUE / NTHREADS;
@@ -24,11 +26,21 @@ public class ControlThreads extends Thread {
         this.reader = new BufferedReader(new InputStreamReader(System.in));
         this.isPaused = new AtomicBoolean(false);  
 
-        for (int i = 0; i < NTHREADS - 1; i++) {
-            PrimeFinderThread elem = new PrimeFinderThread(i * NDATA, (i + 1) * NDATA, monitor, isPaused);
-            pft[i] = elem;
+        int range = MAXVALUE / NTHREADS;
+        int startIndex = 0;
+        int occurrencesCount = 0;
+        for (int i = 0; i < NTHREADS; i++) {
+            int endIndex;
+            if (i == NTHREADS - 1) {
+                // Último hilo: debe cubrir hasta el final
+                endIndex = MAXVALUE;
+            } else {
+                // Hilos intermedios: cubrir hasta el final del rango calculado
+                endIndex = startIndex + range;
+            }
+
+            pft[i] = new PrimeFinderThread(startIndex, endIndex, monitor, isPaused);        
         }
-        pft[NTHREADS - 1] = new PrimeFinderThread((NTHREADS - 1) * NDATA, MAXVALUE + 1, monitor, isPaused);
     }
 
     @Override
