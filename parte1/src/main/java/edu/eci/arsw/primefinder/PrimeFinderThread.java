@@ -2,29 +2,38 @@ package edu.eci.arsw.primefinder;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
-public class PrimeFinderThread extends Thread{
+public class PrimeFinderThread extends Thread {
 
     int a, b;
     private List<Integer> primes = new LinkedList<Integer>();
+    private final Object monitor;
+    private final AtomicBoolean isPaused;
 
-    public PrimeFinderThread(int a, int b) {
+    public PrimeFinderThread(int a, int b, Object monitor, AtomicBoolean isPaused) {
         super();
         this.a = a;
         this.b = b;
+        this.monitor = monitor;
+        this.isPaused = isPaused;  
     }
 
     public void run() {
-        int count = 0;
         for (int i = a; i <= b; i++) {
+            synchronized (monitor) {
+                while (isPaused.get()) {  
+                    try {
+                        monitor.wait();  
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
             if (isPrime(i)) {
                 primes.add(i);
-                System.out.println(i);
+                //System.out.println(i);
             }
-            count++;
-
-           
         }
     }
 
