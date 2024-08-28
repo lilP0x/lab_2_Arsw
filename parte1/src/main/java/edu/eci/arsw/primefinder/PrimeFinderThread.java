@@ -22,7 +22,7 @@ public class PrimeFinderThread extends Thread {
     public void run() {
         for (int i = a; i <= b; i++) {
             synchronized (monitor) {
-                while (isPaused.get()) {  // Comprueba si debe pausar el hilo
+                while (isPaused.get()) {  
                     try {
                         monitor.wait();  
                     } catch (InterruptedException e) {

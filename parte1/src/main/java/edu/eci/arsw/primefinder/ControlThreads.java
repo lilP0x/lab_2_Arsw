@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class ControlThreads extends Thread {
 
     private final static int NTHREADS = 3;
-    private final static int MAXVALUE = 300000000;
+    private final static int MAXVALUE = 10;
     private final static int TMILISECONDS = 5000;
 
     private final int NDATA = MAXVALUE / NTHREADS;
