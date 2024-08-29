@@ -14,6 +14,7 @@ Creación, puesta en marcha y coordinación de hilos.
 2. Modifique el programa para que, en lugar de resolver el problema con un solo hilo, lo haga con tres, donde cada uno de éstos hará la tarcera parte del problema original. Verifique nuevamente el funcionamiento, y nuevamente revise el uso de los núcleos del equipo.
    ![](./img/media/Image2.jpeg)
 3. Lo que se le ha pedido es: debe modificar la aplicación de manera que cuando hayan transcurrido 5 segundos desde que se inició la ejecución, se detengan todos los hilos y se muestre el número de primos encontrados hasta el momento. Luego, se debe esperar a que el usuario presione ENTER para reanudar la ejecución de los mismo.
+   
    ![](./img/media/Image12.jpeg)
    ![](./img/media/Image13.jpeg)
    ![](./img/media/Image14.jpeg)
@@ -92,6 +93,7 @@ Taller.
     deberían despertarse y continuar con la carrera. Diseñe una solución que permita hacer esto utilizando los mecanismos de sincronización con las primitivas de los Locks provistos por el lenguaje (wait y notifyAll).
     
     En la clase Galgo se implementará lo siguiente:
+    
     ![](./img/media/Image15.jpeg)
 
     ![](./img/media/Image16.jpeg)
