@@ -58,6 +58,7 @@ public class MainCanodromo {
         can.setStopAction(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Galgo.pausarCarrera();
                 System.out.println("Carrera pausada!");
             }
         });
@@ -65,6 +66,7 @@ public class MainCanodromo {
         can.setContinueAction(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Galgo.continuarCarrera();
                 System.out.println("Carrera reanudada!");
             }
         });

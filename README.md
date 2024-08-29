@@ -14,8 +14,9 @@ Creación, puesta en marcha y coordinación de hilos.
 2. Modifique el programa para que, en lugar de resolver el problema con un solo hilo, lo haga con tres, donde cada uno de éstos hará la tarcera parte del problema original. Verifique nuevamente el funcionamiento, y nuevamente revise el uso de los núcleos del equipo.
    ![](./img/media/Image2.jpeg)
 3. Lo que se le ha pedido es: debe modificar la aplicación de manera que cuando hayan transcurrido 5 segundos desde que se inició la ejecución, se detengan todos los hilos y se muestre el número de primos encontrados hasta el momento. Luego, se debe esperar a que el usuario presione ENTER para reanudar la ejecución de los mismo.
-
-
+   ![](./img/media/Image12.jpeg)
+   ![](./img/media/Image13.jpeg)
+   ![](./img/media/Image14.jpeg)
 
 #####Parte II 
 
@@ -89,19 +90,14 @@ Taller.
     cuando se haga clic en ‘Stop’, todos los hilos de los galgos
     deberían dormirse, y cuando se haga clic en ‘Continue’ los mismos
     deberían despertarse y continuar con la carrera. Diseñe una solución que permita hacer esto utilizando los mecanismos de sincronización con las primitivas de los Locks provistos por el lenguaje (wait y notifyAll).
-
-
-## Criterios de evaluación
-
-1. Funcionalidad.
-
-    1.1. La ejecución de los galgos puede ser detenida y resumida consistentemente.
     
-    1.2. No hay inconsistencias en el orden de llegada registrado.
-    
-2. Diseño.   
+    En la clase Galgo se implementará lo siguiente:
+    ![](./img/media/Image15.jpeg)
 
-    2.1. Se hace una sincronización de sólo la región crítica (sincronizar, por ejemplo, todo un método, bloquearía más de lo necesario).
-    
-    2.2. Los galgos, cuando están suspendidos, son reactivados son sólo un llamado (usando un monitor común).
+    ![](./img/media/Image16.jpeg)
 
+    ![](./img/media/Image17.jpeg)
+
+    Y en la clase MainCanodromo, se llamaran los métodos de Galgo para que pare y continue en la interfaz del Canodromo:
+    
+    ![](./img/media/Image18.jpeg)
